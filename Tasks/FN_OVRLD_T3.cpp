@@ -30,6 +30,21 @@ public:
         }
     }
 
+    void performTransaction(TransactionType transaction, string title) {
+        int resourceId = findResource(title);
+        if(resourceId != -1) {
+            if (transaction == TransactionType::BORROW) {
+                borrowResource(resourceId);
+            } else if (transaction == TransactionType::RETURN) {
+                returnResource(resourceId);
+            } else if (transaction == TransactionType::RENEW) {
+                renewResource(resourceId);
+            }
+        } else {
+            cout << "Resource '" << title << "' not found in the library.\n";
+        }
+    }
+
 private:
 
     void borrowResource(int id) {
@@ -57,6 +72,15 @@ private:
             cout << "Cannot renew an available " << resources[id].type << ".\n";
         }
     }
+
+    int findResource(string title) {
+        for (int i = 0; i < 200; ++i) {
+            if (resources[i].title == title) {
+                return i;
+            }
+        }
+        return -1;
+    }
 };
 
 int main() {
@@ -70,8 +94,11 @@ int main() {
     library.resources[2] = dvd1;
 
     library.performTransaction(TransactionType::BORROW, 0); // Borrowing a book
-    library.performTransaction(TransactionType::BORROW, 1); // Borrowing a journal
-    library.performTransaction(TransactionType::BORROW, 2); // Borrowing a DVD
+    // library.performTransaction(TransactionType::BORROW, 1); // Borrowing a journal
+    // library.performTransaction(TransactionType::BORROW, 2); // Borrowing a DVD
+
+    library.performTransaction(TransactionType::BORROW, "Scientific Journal");
+    library.performTransaction(TransactionType::BORROW, "Movie DVD");
 
     return 0;
 }

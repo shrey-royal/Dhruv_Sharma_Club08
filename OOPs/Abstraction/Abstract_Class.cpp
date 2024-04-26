@@ -18,7 +18,7 @@ Whichever class will have the pure virtual function, that class will become the 
 #include<iostream>
 using namespace std;
 
-class Vehicle {
+class Vehicle { //Abstract Class
 private:
     string brand;
     string model;
@@ -34,7 +34,7 @@ public:
     }
 };
 
-class Car : public Vehicle {
+class Car : public Vehicle {    //Concrete Class
 public:
     Car(string brand, string model, int maxSpeed) : Vehicle(brand, model, maxSpeed) {}
 
